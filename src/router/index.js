@@ -28,6 +28,24 @@ export const constantRoutes = [
         path: '/login',
         component: () => import('@/views/login/index'),
         hidden: true
+    },
+    {
+        path: '/',
+        redirect: '/dashboard',
+        // TODO: About children
+        // children: [
+        //     {
+        //         path: 'dashboard',
+        //         component: () => import('@/views/dashboard/index'),
+        //         name: 'Dashboard',
+        //         meta: { title: 'Dashboard', icon: 'dashboard', affix: true}
+        //     }
+        // ]
+    },
+    {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard/index'),
+        hidden: true
     }
 ];
 

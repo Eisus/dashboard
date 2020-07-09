@@ -1,6 +1,9 @@
 <template>
     <div class="login-container">
-        <el-form ref="form" :model="form" :rules="loginRules" autocomplete="off">
+        <el-form ref="form" :model="form" :rules="loginRules" autocomplete="off" class="login-form">
+            <div class="form-title">
+                <h3>Login</h3>
+            </div>
             <el-form-item label="Login Name" prop="username">
                 <el-input v-model="form.username"
                           ref="username"
@@ -24,9 +27,9 @@
                               show-password></el-input>
                 </el-form-item>
             </el-tooltip>
-            <el-button :loading="isLoading" type="primary" @click.native.prevent="handleLogin">Login</el-button>
+            <el-button :loading="isLoading" type="primary" @click.native.prevent="handleLogin" class="login-btn">Login</el-button>
         </el-form>
-        <!--<div>{{ form.username + ':  ' + form.password}}</div>-->
+
     </div>
 
 
@@ -61,6 +64,13 @@
      *          if you want to wait until the entire view has been rendered, vm.$nextTick can be used inside of mounted
      *          This hook is not called during server-side-rendering
      */
+    /**
+     * KeyPoint: Vue Route
+     * <router-link> can be used to create anchor tags for declarative navigation
+     *  router.push(location, onComplete?, onAbort?) --> by this.$router()
+     *              can be used to navigate to different URL. This method pushes a new entry into the history stack
+     *              so when the user clicks the browser back button they will be back to the previous URL.
+     */
     export default {
         name: 'Login',
         data() {
@@ -71,6 +81,7 @@
                 },
                 capsTooltip: false,
                 isLoading: false,
+                otherQuery: {},
                 loginRules: {
                     username: [
                         { required: true, message: 'This area cannot be empty', trigger: 'blur'}
@@ -81,7 +92,24 @@
                 }
             }
         },
+        watch: {
+            $route: {
+                handler: function(route) {
+                    const query = route.query
+                    if (query) {
+                        this.redirect = query.redirect
+                        this.otherQuery = this.getOtherQuery(query)
+                    }
+                },
+                immediate: true
+            }
+        },
         mounted() {
+            if (this.form.username === '') {
+                this.$refs.username.focus()
+            } else if (this.form.password === '') {
+                this.$refs.password.focus()
+            }
 
         },
         methods: {
@@ -91,13 +119,43 @@
                 this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
             },
             handleLogin() {
-                console.log('haha')
-                this.isLoading = true;
+                this.$refs.form.validate(isValid => {
+                    if (isValid) {
+                        this.isLoading = true;
+                        this.$router.push('/')
+                    } else {
+                        return false;
+                    }
+                })
+            },
+            getOtherQuery(query) {
+                return Object.keys(query).reduce((acc, cur) => {
+                    if (cur !== 'redirect') {
+                        acc[cur] = query[cur]
+                    }
+                    return acc
+                }, {})
             }
+
         }
     }
 </script>
 
-<style>
+<style lang="less" scoped>
+    .login-container {
+        width: 100%;
+        min-height: 100%;
+        overflow: auto;
+        .login-form {
+            margin: 0 auto;
+            width: 520px;
+            padding: 160px 35px 0;
+        }
+        .login-btn {
+            width: 100%;
+            margin-top: 20px
+        }
+
+    }
 
 </style>

@@ -4,6 +4,12 @@ import Element from 'element-ui'
 
 import 'element-ui/lib/theme-chalk/index.css'
 
+/**
+ * KeyPoint
+ * Global style should be imported here
+ */
+import '@/styles/mainStyle.less'
+
 import router from './router'
 
 Vue.config.productionTip = false
