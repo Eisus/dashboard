@@ -45,7 +45,21 @@
      *  .prevent: prevent default behavior
      *  .capture: an event targeting an inner element is handled here before being handled
      *  .self: only trigger handler if event target is element itself
-     *  .native:
+     *  .native: when listening directly to a native event on the root element of a component
+     */
+    /**
+     * KeyPoint: $refs
+     * Refs are Vue instance properties used to register or indicate a reference to HTML elements or child
+     * elements in the template of the application.
+     * eg. this.$refs.username --> the username is the reference name earlier created inside the element (ref='username')
+     */
+    /**
+     * KeyPoint: lifecycle and lifecycle hooks
+     *  new Vue -- (beforeCreate) -- init event and life -- (created) -- init injection and validation -- (beforeMount) --
+     *  create vm.$el to replace el -- (mounted) -- finish mounting -- (beforeUpdate) -- (updated)
+     *  !! NOTE: mounted does not guarantee that all child components have also been mounted.
+     *          if you want to wait until the entire view has been rendered, vm.$nextTick can be used inside of mounted
+     *          This hook is not called during server-side-rendering
      */
     export default {
         name: 'Login',
@@ -66,6 +80,9 @@
                     ]
                 }
             }
+        },
+        mounted() {
+
         },
         methods: {
             checkCapslock(e) {
