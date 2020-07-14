@@ -114,7 +114,6 @@
         },
         methods: {
             checkCapslock(e) {
-                console.log(e)
                 const { key } = e
                 this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
             },

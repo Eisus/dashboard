@@ -5,6 +5,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Layout from '@/layout'
+
 /**
  * KeyPoint:
  * Plugins usually add global-level functionality. Use plugins by calling the Vue.use() global method.
@@ -30,23 +32,23 @@ export const constantRoutes = [
         hidden: true
     },
     {
-        path: '/',
+        path: '/',  // Nested roots: refer to <router-view> in @/views/App.vue
         redirect: '/dashboard',
-        // TODO: About children
-        // children: [
-        //     {
-        //         path: 'dashboard',
-        //         component: () => import('@/views/dashboard/index'),
-        //         name: 'Dashboard',
-        //         meta: { title: 'Dashboard', icon: 'dashboard', affix: true}
-        //     }
-        // ]
+        component: Layout,
+        children: [
+            {
+                path: 'dashboard', // Nested roots - children roots: refer to <router-view> in @/layout/AppMain.vue
+                component: () => import('@/views/dashboard/index'),
+                name: 'Dashboard',
+                meta: { title: 'Dashboard', icon: 'dashboard', affix: true}
+            }
+        ]
     },
-    {
-        path: '/dashboard',
-        component: () => import('@/views/dashboard/index'),
-        hidden: true
-    }
+//     {
+//         path: '/dashboard',
+//         component: () => import('@/views/dashboard/index'),
+//         hidden: true
+//     }
 ];
 
 const createRouter = ()=> new Router({
