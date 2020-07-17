@@ -32,6 +32,16 @@ export const constantRoutes = [
         hidden: true
     },
     {
+        path: '/404',
+        component: () => import('@/views/error-page/404'),
+        hidden: true
+    },
+    {
+        path: '/401',
+        component: () => import('@/views/error-page/401'),
+        hidden: true
+    },
+    {
         path: '/',  // Nested roots: refer to <router-view> in @/views/App.vue
         redirect: '/dashboard',
         component: Layout,
@@ -44,11 +54,35 @@ export const constantRoutes = [
             }
         ]
     },
-//     {
-//         path: '/dashboard',
-//         component: () => import('@/views/dashboard/index'),
-//         hidden: true
-//     }
+    {
+        path: 'https://www.bing.com',
+        hidden: false,
+        children: [],
+        name: 'test'
+    },
+    {
+        path: '/error',
+        component: Layout,
+        name: 'ErrorPages',
+        meta: {
+            title: 'Error Pages',
+            icon: '404'
+        },
+        children: [
+            {
+                path: '401',
+                component: () => import('@/views/error-page/401'),
+                name: 'Page401',
+                meta: {title: '401', noCache: true}
+            },
+            {
+                path: '404',
+                component: () => import('@/views/error-page/404'),
+                name: 'Page404',
+                meta: {title: '404', noCache: true}
+            }
+        ]
+    }
 ];
 
 const createRouter = ()=> new Router({
@@ -57,6 +91,7 @@ const createRouter = ()=> new Router({
 })
 
 const router = createRouter()
+
 
 export function resetRouter () {
     const newRouter = createRouter()

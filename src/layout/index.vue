@@ -17,10 +17,10 @@
 </template>
 
 <script>
-    import { AppMain , TagsView} from './components'
+    import { AppMain , TagsView, Sidebar } from './components'
     export default {
         name: 'Layout',
-        components: {AppMain, TagsView} // NOTE-BugFix: OBJECT !!!!
+        components: {AppMain, TagsView, Sidebar} // NOTE-BugFix: OBJECT !!!!
     }
 
 </script>
