@@ -5,6 +5,7 @@
             this is applink
             <app-link :to="resolvePath(currentItem.path)" :isExternal="isExternal">
                 <span>{{ currentItem.name }}</span>
+                <item :icon="currentItem.meta.icon" :title="currentItem.meta.title"></item>
             </app-link>
 
         </template>
@@ -19,6 +20,7 @@
 
 <script>
     import AppLink from './Link'
+    import Item from './Item'
     import { isExternal } from '@/utils/validate.js'
     export default {
         name: 'SidebarItem',
@@ -28,7 +30,7 @@
                 required: true
             }
         },
-        components: { AppLink },
+        components: { AppLink, Item },
         data() {
             return {
                 currentItem: null,
@@ -46,9 +48,11 @@
                 });
                 if (showingItem.length === 0) {
                     this.currentItem = item;
+                    console.log(this.currentItem);
                     return true;
                 } else if (showingItem.length === 1) {
                     this.currentItem = children[0];
+                    console.log(this.currentItem);
                     return true;
                 }
                 return false;
