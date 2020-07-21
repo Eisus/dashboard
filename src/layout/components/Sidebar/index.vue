@@ -1,7 +1,6 @@
 <template>
     <div class="sidebar-container">
         <!--<logo :collapse="isCollapse"></logo>-->
-        this is side bar
         <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu default-active="1" class="el-menu-container" :collapse="isCollapse">
                 <sidebar-item v-for="route in allRoutes" :item="route" :key="route.path" :base-path="route.path"> </sidebar-item>
@@ -28,6 +27,13 @@
 
 </script>
 
-<style>
+<style lang="less" scoped>
+    .sidebar-container {
+        height: 100%;
+        border-right: 1px solid #e6e6e6;
+    }
+    .el-menu-container{
+        border-right: 0;
+    }
 
 </style>

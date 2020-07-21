@@ -13,8 +13,5 @@
 </script>
 
 <style lang="less" scoped>
-    .tags-view {
-        background: lightcoral;
-    }
 
 </style>

@@ -1,22 +1,35 @@
 <template>
-    <div class="app-wrapper">
-        <div>This is layout</div>
-        <sidebar class="sidebar-container"/>
-        <div class="main-container">
-            <div>
+    <el-container class="app-container">
+        <el-aside style="width: 200px">
+            <sidebar />
+        </el-aside>
+        <el-main class="main-container">
+            <el-header class="head-container">
                 <!--<navbar />-->
                 <tags-view />
-            </div>
-            <app-main />
-            <!--<right-panel>-->
+            </el-header>
+            <el-container>
+                <!--<right-panel>-->
                 <!--<settings />-->
-            <!--</right-panel>-->
+                <!--</right-panel>-->
+                <el-main>
+                    <app-main />
+                </el-main>
+            </el-container>
 
-        </div>
-    </div>
+        </el-main>
+
+    </el-container>
 </template>
 
 <script>
+    /**
+     * KeyPoint: about layout container
+     * <el-container> : !! when nested with a <el-header> or <el-footer>, all its elements will be vertically
+     *                  arranged. Otherwise horizontally.
+     *
+     *
+     */
     import { AppMain , TagsView, Sidebar } from './components'
     export default {
         name: 'Layout',
@@ -25,6 +38,20 @@
 
 </script>
 
-<style>
+<style lang="less" scoped>
+    .app-container {
+        height: 100%;
+        background-color: #f0f2f5;
+        .el-aside {
+            height: 100%;
+            background: #fff;
+        }
+        .el-header {
+            background: #fff;
+        }
+    }
+    .main-container {
+        padding: 0;
+    }
 
 </style>
