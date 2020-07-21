@@ -50,7 +50,7 @@ export const constantRoutes = [
                 path: 'dashboard', // Nested roots - children roots: refer to <router-view> in @/layout/AppMain.vue
                 component: () => import('@/views/dashboard/index'),
                 name: 'Dashboard',
-                meta: { title: 'Dashboard', icon: 'dashboard', affix: true}
+                meta: { title: 'Dashboard', icon: 'el-icon-edit', affix: true}
             }
         ]
     },
@@ -58,16 +58,15 @@ export const constantRoutes = [
         path: 'https://www.bing.com',
         hidden: false,
         children: [],
-        name: 'test'
+        name: 'test',
+        meta: { title: 'Bing', icon: 'el-icon-edit' }
     },
     {
         path: '/error',
         component: Layout,
+        hidden: false,
         name: 'ErrorPages',
-        meta: {
-            title: 'Error Pages',
-            icon: '404'
-        },
+        meta: {title: 'Error Page', icon: 'el-icon-edit'},
         children: [
             {
                 path: '401',

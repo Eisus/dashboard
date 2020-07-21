@@ -4,7 +4,7 @@
         this is side bar
         <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu default-active="1" class="el-menu-container" :collapse="isCollapse">
-                <sidebar-item v-for="route in allRoutes" :item="route" :key="route.path"> </sidebar-item>
+                <sidebar-item v-for="route in allRoutes" :item="route" :key="route.path" :base-path="route.path"> </sidebar-item>
             </el-menu>
 
         </el-scrollbar>

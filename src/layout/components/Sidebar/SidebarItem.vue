@@ -1,18 +1,23 @@
 <template>
     <div v-if="!item.hidden">
-        this is sidebar item
         <template v-if="hasOnlyOneChild(item.children, item)">
-            this is applink
             <app-link :to="resolvePath(currentItem.path)" :isExternal="isExternal">
-                <span>{{ currentItem.name }}</span>
-                <item :icon="currentItem.meta.icon" :title="currentItem.meta.title"></item>
+                <el-menu-item>
+                    <item :icon="currentItem.meta.icon" :title="currentItem.meta.title"></item>
+                </el-menu-item>
             </app-link>
-
         </template>
-        <span v-else>hidden</span>
-        <!--<el-submenu v-else>-->
-            <!--<span>hidden</span>-->
-        <!--</el-submenu>-->
+        <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+            <template slot="title">
+                <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title"></item>
+            </template>
+            <sidebar-item v-for="child in item.children"
+                          :key="child.path"
+                          :base-path="resolvePath(child.path)"
+                          :item="child"
+                          :isNest="true"
+                          class="nest-menu"></sidebar-item>
+        </el-submenu>
 
 
     </div>
@@ -28,6 +33,15 @@
             item: {
                 type: Object,
                 required: true
+            },
+            basePath: {
+                type: String,
+                required: true
+            },
+            // true when the nav is nested
+            isNest: {
+                type: Boolean,
+                required: false
             }
         },
         components: { AppLink, Item },
@@ -38,7 +52,7 @@
             }
         },
         methods: {
-            hasOnlyOneChild(children, item) {
+            hasOnlyOneChild(children=[], item) {
                 const showingItem =  children.filter(child => {
                     if (child.hidden) {
                         return false;
@@ -58,8 +72,10 @@
                 return false;
             },
             resolvePath(routePath) {
-                const basePath = this.item.path;
-                // const routePath = this.currentItem.path;
+                const basePath = this.basePath;
+                if (this.isNest) {
+                    return basePath;
+                }
                 if (isExternal(routePath)) {
                     this.isExternal = true;
                     return routePath;

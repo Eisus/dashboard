@@ -31,7 +31,7 @@
                     return {
                         href: this.to,
                         target: '_blank',
-                        rel: 'noopener'
+                        rel: 'noopener',
                     }
                 } else {
                     return {
@@ -44,6 +44,8 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+    a {
+        text-decoration: none;
+    }
 </style>
