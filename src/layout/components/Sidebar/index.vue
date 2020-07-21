@@ -2,7 +2,7 @@
     <div class="sidebar-container">
         <!--<logo :collapse="isCollapse"></logo>-->
         <el-scrollbar wrap-class="scrollbar-wrapper">
-            <el-menu default-active="1" class="el-menu-container" :collapse="isCollapse">
+            <el-menu default-active="1" class="el-menu-container" :collapse="isCollapsed">
                 <sidebar-item v-for="route in allRoutes" :item="route" :key="route.path" :base-path="route.path"> </sidebar-item>
             </el-menu>
 
@@ -12,14 +12,20 @@
 
 <script>
     import { constantRoutes as allRoutes} from "@/router";
-    import SidebarItem from './SidebarItem'
+    import SidebarItem from './SidebarItem';
     export default {
         name: 'Sidebar',
         components: { SidebarItem },
+        props: {
+            isCollapsed: {
+                type: Boolean,
+                required: false
+            }
+        },
         data() {
             console.error('test', allRoutes);
             return {
-                isCollapse: false,
+                // isCollapse: false,
                 allRoutes: allRoutes
             }
         }
@@ -30,7 +36,7 @@
 <style lang="less" scoped>
     .sidebar-container {
         height: 100%;
-        border-right: 1px solid #e6e6e6;
+        /*border-right: 1px solid #e6e6e6;*/
     }
     .el-menu-container{
         border-right: 0;

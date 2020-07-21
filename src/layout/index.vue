@@ -1,12 +1,12 @@
 <template>
     <el-container class="app-container">
         <el-aside style="width: 200px">
-            <sidebar />
+            <sidebar :isCollapsed="isSidebarCollapsed"/>
         </el-aside>
         <el-main class="main-container">
             <el-header class="head-container">
-                <!--<navbar />-->
-                <tags-view />
+                <navbar @toggleSidebar="toggleSidebar" />
+                <!--<tags-view />-->
             </el-header>
             <el-container>
                 <!--<right-panel>-->
@@ -30,10 +30,23 @@
      *
      *
      */
-    import { AppMain , TagsView, Sidebar } from './components'
+    import { AppMain , Sidebar, Navbar } from './components'
     export default {
         name: 'Layout',
-        components: {AppMain, TagsView, Sidebar} // NOTE-BugFix: OBJECT !!!!
+        components: {AppMain,  Sidebar, Navbar}, // NOTE-BugFix: OBJECT !!!!,
+        data() {
+            return {
+                isSidebarCollapsed: {
+                    type: Boolean,
+                    default: false
+                }
+            }
+        },
+        methods: {
+            toggleSidebar() {
+                this.isSidebarCollapsed = !this.isSidebarCollapsed;
+            }
+        }
     }
 
 </script>
