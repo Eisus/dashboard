@@ -2,7 +2,14 @@
     <div class="sidebar-container">
         <!--<logo :collapse="isCollapse"></logo>-->
         <el-scrollbar wrap-class="scrollbar-wrapper">
-            <el-menu default-active="1" class="el-menu-container" :collapse="isCollapsed">
+            <!-- collapse-transition=true 会出现导航栏文字闪现的问题-->
+            <el-menu class="el-menu-container"
+                     :background-color="sidebarStyle.bg"
+                     :text-color="sidebarStyle.textColor"
+                     :active-text-color="sidebarStyle.activeTextColor"
+                     :collapse-transition="false"
+                     :collapse="isCollapsed"
+            >
                 <sidebar-item v-for="route in allRoutes" :item="route" :key="route.path" :base-path="route.path"> </sidebar-item>
             </el-menu>
 
@@ -19,14 +26,20 @@
         props: {
             isCollapsed: {
                 type: Boolean,
-                required: false
             }
         },
         data() {
             console.error('test', allRoutes);
             return {
                 // isCollapse: false,
-                allRoutes: allRoutes
+                allRoutes: allRoutes,
+                sidebarStyle: {
+                    bg: '#304156',
+                    textColor: '#BFCBD9',
+                    activeTextColor: '#409EFF'
+
+
+                }
             }
         }
     }
@@ -37,6 +50,7 @@
     .sidebar-container {
         height: 100%;
         /*border-right: 1px solid #e6e6e6;*/
+        background: #304156;
     }
     .el-menu-container{
         border-right: 0;

@@ -1,6 +1,6 @@
 <template>
     <el-container class="app-container">
-        <el-aside style="width: 200px">
+        <el-aside class="side-nav-container" :class="{isCollapsed: isSidebarCollapsed}">
             <sidebar :isCollapsed="isSidebarCollapsed"/>
         </el-aside>
         <el-main class="main-container">
@@ -36,10 +36,7 @@
         components: {AppMain,  Sidebar, Navbar}, // NOTE-BugFix: OBJECT !!!!,
         data() {
             return {
-                isSidebarCollapsed: {
-                    type: Boolean,
-                    default: false
-                }
+                isSidebarCollapsed: false
             }
         },
         methods: {
@@ -51,7 +48,18 @@
 
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+    .side-nav-container {
+        width: 200px !important;
+        -webkit-transition: width 0.3s;
+        -moz-transition: width 0.3s;
+        -ms-transition: width 0.3s;
+        -o-transition: width 0.3s;
+        transition: width 0.3s;
+    }
+    .side-nav-container.isCollapsed {
+        width: 64px !important;
+    }
     .app-container {
         height: 100%;
         background-color: #f0f2f5;

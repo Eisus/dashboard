@@ -19,8 +19,7 @@
         methods: {
             toggleSidebar() {
                 this.isActive = !this.isActive;
-                console.log('toggle', this.isActive)
-
+                this.$emit('toggleSidebar');
             }
         }
     }

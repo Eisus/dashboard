@@ -2,12 +2,12 @@
     <div v-if="!item.hidden">
         <template v-if="hasOnlyOneChild(item.children, item)">
             <app-link :to="resolvePath(currentItem.path)" :isExternal="isExternal">
-                <el-menu-item>
+                <el-menu-item :index="resolvePath(currentItem.path)">
                     <item :icon="currentItem.meta.icon" :title="currentItem.meta.title"></item>
                 </el-menu-item>
             </app-link>
         </template>
-        <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+        <el-submenu v-else index="resolvePath(item.path)" popper-append-to-body>
             <template slot="title">
                 <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title"></item>
             </template>
@@ -18,8 +18,6 @@
                           :isNest="true"
                           class="nest-menu"></sidebar-item>
         </el-submenu>
-
-
     </div>
 </template>
 
@@ -62,7 +60,6 @@
                 });
                 if (showingItem.length === 0) {
                     this.currentItem = item;
-                    console.log(this.currentItem);
                     return true;
                 } else if (showingItem.length === 1) {
                     this.currentItem = children[0];
@@ -91,4 +88,19 @@
     }
 </script>
 
-<style></style>
+<style lang="less">
+    /**
+    Note:
+    <el-menu> 根据 :collapse 自动隐藏导航栏文字部分，留下icon，但隐藏条件为：
+    .el-menu--collapse>.el-submenu>.el-submenu__title span
+    在生成组件的过程中破坏了该匹配规则，故应自己书写相应规则
+
+     */
+    .el-menu--collapse > div > .el-submenu > .el-submenu__title span {
+        display: none;
+    }
+    .el-menu--collapse > div > .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+        display: none;
+    }
+
+</style>
